@@ -25,4 +25,21 @@ describe("Summary Form", function () {
     await user.click(checkbox);
     expect(button).toBeDisabled();
   });
+
+  it("should display popover on hover", async function () {
+    const user = userEvent.setup();
+    render(<SummaryForm />);
+    const noPopOver = screen.queryByText(
+      /no ice cream will actually be delivered/i
+    );
+    expect(noPopOver).not.toBeInTheDocument();
+    const termsAndConditions = screen.getByText(/terms and conditions/i);
+    await user.hover(termsAndConditions);
+    const popOver = screen.getByText(
+      /no ice cream will actually be delivered/i
+    );
+    expect(popOver).toBeInTheDocument();
+    await user.unhover(termsAndConditions);
+    expect(popOver).not.toBeInTheDocument();
+  });
 });

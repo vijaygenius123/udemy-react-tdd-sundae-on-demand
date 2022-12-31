@@ -1,12 +1,24 @@
 import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Popover } from "react-bootstrap";
 
 export const SummaryForm = () => {
   const [agree, setAgree] = useState(false);
   const toggleAgree = () => {
     setAgree((prev) => !prev);
   };
-  const checkboxLabel = <span>I agree to Terms and Conditions</span>;
+  const popover = (
+    <Popover>
+      <Popover.Body>No ice cream will actually be delivered</Popover.Body>
+    </Popover>
+  );
+  const checkboxLabel = (
+    <span>
+      I agree to{" "}
+      <OverlayTrigger overlay={popover} placement={"right"}>
+        <span className={"link-primary"}>Terms and Conditions</span>
+      </OverlayTrigger>
+    </span>
+  );
   return (
     <Form>
       <Form.Group controlId={"terms-and-conditions"}>
